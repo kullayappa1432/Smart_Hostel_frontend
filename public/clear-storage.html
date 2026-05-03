@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Storage - SmartHostel</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .success {
+            color: #10b981;
+            font-weight: bold;
+            margin-top: 1rem;
+            display: none;
+        }
+        .info {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Clear Storage</h1>
+        <p>Click the button below to clear all stored authentication data and fix token issues.</p>
+        
+        <button onclick="clearStorage()">Clear All Storage</button>
+        
+        <div class="success" id="success">
+            ✅ Storage cleared successfully!<br>
+            <small>Redirecting to login...</small>
+        </div>
+        
+        <div class="info">
+            <strong>This will clear:</strong>
+            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                <li>Authentication tokens</li>
+                <li>User session data</li>
+                <li>Local storage</li>
+                <li>Session storage</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function clearStorage() {
+            // Clear localStorage
+            localStorage.clear();
+            
+            // Clear sessionStorage
+            sessionStorage.clear();
+            
+            // Show success message
+            document.getElementById('success').style.display = 'block';
+            
+            // Redirect to login after 2 seconds
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
