@@ -31,8 +31,18 @@ export default function AdminRoomsPage() {
 
   useEffect(() => {
     fetchRooms();
-    departmentsApi.getAll().then((r) => setDepartments(r.data?.data || []));
-    semestersApi.getAll().then((r) => setSemesters(r.data?.data || []));
+    departmentsApi.getAll()
+      .then((r) => setDepartments(r.data?.data || []))
+      .catch((err) => {
+        console.error('Failed to fetch departments:', err);
+        toast.error('Failed to load departments');
+      });
+    semestersApi.getAll()
+      .then((r) => setSemesters(r.data?.data || []))
+      .catch((err) => {
+        console.error('Failed to fetch semesters:', err);
+        toast.error('Failed to load semesters');
+      });
   }, []);
 
   const onSubmit = async (data: any) => {
