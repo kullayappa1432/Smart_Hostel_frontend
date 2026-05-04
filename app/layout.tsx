@@ -14,6 +14,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ErrorBoundary>
           {children}
         </ErrorBoundary>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5586933340157941"
+     crossorigin="anonymous"></script>
       </body>
     </html>
   );
