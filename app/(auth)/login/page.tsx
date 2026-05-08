@@ -82,7 +82,7 @@ export default function LoginPage() {
               {...register('password', { required: 'Password is required' })}
             />
             <div className="flex items-center justify-end">
-              <Link href="/forgot-password" className="text-xs text-blue-500 hover:text-blue-600">
+              <Link href="/forgot-password" className="text-xs text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
                 Forgot password?
               </Link>
             </div>

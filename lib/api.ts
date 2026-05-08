@@ -80,6 +80,7 @@ export const authApi = {
   login: (data: { email: string; password: string }) => api.post('/auth/login', data),
   register: (data: any) => api.post('/auth/register/student', data),
   forgotPassword: (email: string) => api.post('/auth/forgot-password', { email }),
+  verifyOtp: (data: { email: string; otp: string }) => api.post('/auth/verify-otp', data),
   resetPassword: (data: any) => api.post('/auth/reset-password', data),
   getProfile: () => api.get('/auth/profile'),
 };
