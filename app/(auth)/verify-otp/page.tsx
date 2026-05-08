@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -13,7 +13,7 @@ interface VerifyOtpForm {
   otp: string;
 }
 
-export default function VerifyOtpPage() {
+function VerifyOtpContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get('email') || '';
@@ -27,6 +27,16 @@ export default function VerifyOtpPage() {
   const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm<VerifyOtpForm>();
 
   const watchOtp = watch('otp');
+
+  // Auto-format OTP input to only allow digits
+  useEffect(() => {
+    if (watchOtp) {
+      const formatted = watchOtp.replace(/\D/g, '').slice(0, 6);
+      if (formatted !== watchOtp) {
+        setValue('otp', formatted);
+      }
+    }
+  }, [watchOtp, setValue]);
 
   // Timer for OTP expiration
   useEffect(() => {
@@ -44,12 +54,6 @@ export default function VerifyOtpPage() {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  // Handle OTP input - auto-format to 6 digits
-  const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D/g, '').slice(0, 6);
-    setValue('otp', value);
   };
 
   const onSubmit = async (data: VerifyOtpForm) => {
@@ -167,7 +171,6 @@ export default function VerifyOtpPage() {
                   inputMode="numeric"
                   placeholder="000000"
                   maxLength={6}
-                  onChange={handleOtpChange}
                   {...register('otp', {
                     required: 'OTP is required',
                     pattern: {
@@ -268,5 +271,14 @@ export default function VerifyOtpPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+// Wrapper component with Suspense boundary
+export default function VerifyOtpPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyOtpContent />
+    </Suspense>
   );
 }
