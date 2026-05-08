@@ -14,6 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ErrorBoundary>
           {children}
         </ErrorBoundary>
+
       </body>
     </html>
   );
